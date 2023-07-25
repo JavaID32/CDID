@@ -1,0 +1,42 @@
+local function GetCoffee()
+    local args = {
+        [1] = "GetCoffee"
+    }
+    
+    game:GetService("ReplicatedStorage").NetworkContainer.RemoteEvents.JanjiJiwa:FireServer(unpack(args))
+end
+local function Delivery()
+    local args = {
+        [1] = "Delivery"
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("NetworkContainer"):WaitForChild("RemoteEvents"):WaitForChild("JanjiJiwa"):FireServer(unpack(args))
+end
+local function startcoffee()
+    local args = {
+        [1] = "JanjiJiwa"
+    }
+    
+    game:GetService("ReplicatedStorage").NetworkContainer.RemoteEvents.Job:FireServer(unpack(args))
+end
+
+local lib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/Vape.txt")()
+local win = lib:Window("Nara Hub",Color3.fromRGB(44, 120, 224), Enum.KeyCode.RightControl)
+
+local tab = win:Tab("Autofarm")
+tab:Toggle("Cafe - Fast ASF",false, function(value)
+getgenv().cafefarm = value
+while getgenv().cafefarm do task.wait()
+startcoffee()
+wait(0.1)
+GetCoffee()
+wait(0.1)
+Delivery()
+end
+end)
+
+local changeclr = win:Tab("Change UI Color")
+
+changeclr:Colorpicker("Change UI Color",Color3.fromRGB(44, 120, 224), function(t)
+lib:ChangePresetColor(Color3.fromRGB(t.R * 255, t.G * 255, t.B * 255))
+end)
